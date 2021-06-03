@@ -1,7 +1,5 @@
 #include "validation.hpp"
 // TODO: Put implementations here
-#include <ctime>
-#include <cstdlib>
 #include <cctype>
 #include <algorithm>
 std::string getErrorMessage(ErrorCode errorCode)
@@ -20,6 +18,8 @@ std::string getErrorMessage(ErrorCode errorCode)
             return "Password needs to have at least one uppercase letter";
         case ErrorCode::PasswordsDoNotMatch:
             return "Passwords do not match";
+        default:
+            return "";
         
     }
 }
@@ -49,8 +49,7 @@ ErrorCode checkPasswordRules(std::string password)
 
 ErrorCode checkPassword(std::string password, std::string repeatedPassword)
 {
-    bool passwordMatch = doPasswordsMatch(password, repeatedPassword);
-    if(!passwordMatch)
+    if(!doPasswordsMatch(password, repeatedPassword))
         return ErrorCode::PasswordsDoNotMatch;
     else
         return checkPasswordRules(password);
